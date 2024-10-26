@@ -3,14 +3,15 @@ import {
     DELETE_TODO,
     EDIT_TODO,
     UPDATE_TODO,
-    COMPLETE_TODO
+    COMPLETE_TODO,
+    UNDO_TODO
 } from "../constants/todo.constant";
 
 const initialState = {
     todos: JSON.parse(localStorage.getItem('todos')) || [],
     editData: {
         index: -1,
-        todo: null,
+        data: null,
     },
 };
 
@@ -54,14 +55,14 @@ export const todoReducer = (state = initialState, action) => {
                 todos: updatedTodos,
                 editData: {
                     index: -1,
-                    data: ''
+                    data: null
                 }
             };
 
         case COMPLETE_TODO:
             const completedTodos = state.todos.map((todo, index) => {
                 if (index === action.payload) {
-                    return { ...todo, completed: !todo.completed }; // Toggle the completed status
+                    return { ...todo, completed: true };
                 }
                 return todo;
             });
@@ -70,6 +71,20 @@ export const todoReducer = (state = initialState, action) => {
                 ...state,
                 todos: completedTodos
             };
+
+        case UNDO_TODO:
+            const undoneTodos = state.todos.map((todo, index) => {
+                if (index === action.payload) {
+                    return { ...todo, completed: false };
+                }
+                return todo;
+            });
+            localStorage.setItem('todos', JSON.stringify(undoneTodos));
+            return {
+                ...state,
+                todos: undoneTodos
+            };
+
 
         default:
             return state;

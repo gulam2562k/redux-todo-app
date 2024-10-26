@@ -1,4 +1,4 @@
-import { ADD_TODO, DELETE_TODO, EDIT_TODO, UPDATE_TODO, COMPLETE_TODO } from "../constants/todo.constant";
+import { ADD_TODO, DELETE_TODO, EDIT_TODO, UPDATE_TODO, COMPLETE_TODO, UNDO_TODO } from "../constants/todo.constant";
 
 export const addTodoAction = (todo) => ({
     type: ADD_TODO,
@@ -28,5 +28,10 @@ export const updateTodoAction = (index, data) => ({
 
 export const completeTodoAction = (index) => ({
     type: COMPLETE_TODO,
+    payload: index,
+});
+
+export const undoTodoAction = (index) => ({
+    type: UNDO_TODO,
     payload: index,
 });
