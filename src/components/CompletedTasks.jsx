@@ -10,7 +10,7 @@ function CompletedTodos() {
 
   return (
     <div className="mt-4">
-      <h3>Completed Todos</h3>
+      <h3 className="text-center">Completed Todos</h3>
       <ul className="list-group">
         {completedTodos.length > 0 ? (
           completedTodos.map((todo, index) => (
